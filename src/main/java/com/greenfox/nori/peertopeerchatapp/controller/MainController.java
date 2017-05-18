@@ -2,6 +2,7 @@ package com.greenfox.nori.peertopeerchatapp.controller;
 
 import com.greenfox.nori.peertopeerchatapp.model.ErrorMessage;
 import com.greenfox.nori.peertopeerchatapp.model.LogMessage;
+import com.greenfox.nori.peertopeerchatapp.model.Message;
 import com.greenfox.nori.peertopeerchatapp.model.MyUser;
 import com.greenfox.nori.peertopeerchatapp.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,24 @@ public class MainController {
   }
 
   @GetMapping("/")
-  public String main(Model model, @RequestParam(value = "errorMessage", required = false) String errorMessage){
-    LogMessage logMessage = new LogMessage("/", "GET", "INFO", "errorMessage=" + errorMessage);
+  public String main(Model model,
+          @RequestParam(value = "errorMessage", required = false) String errorMessage){
+    LogMessage logMessage = new LogMessage
+            ("/", "GET", "INFO", "errorMessage=" + errorMessage);
     System.out.println(logMessage);
-    ErrorMessage error = new ErrorMessage(errorMessage);
-    model.addAttribute("error", error);
+
     if(service.isAnyUser()) {
+      ErrorMessage error = new ErrorMessage(errorMessage);
+      model.addAttribute("error", error);
       MyUser user = service.findUser();
       model.addAttribute("user", user);
+
+      if(service.findAllMessage().size() == 0) {
+        Message defaultMessage = new Message
+                ("App", "Hi there! Submit your message using the send button!");
+        service.saveMessage(defaultMessage);
+      }
+      model.addAttribute("messageList", service.findAllMessage());
       return "main";
     } else {
       return "redirect:/enter";

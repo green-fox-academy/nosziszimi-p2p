@@ -14,5 +14,11 @@
       <input type="text" name="userName" th:value="${user.userName}"/>
       <input type="submit" value="update"/>
     </form>
+    <ul th:each="message : ${messageList}">
+      <li>
+        <p th:text="${message.username}"></p>
+        <p th:text="${message.text}"></p>
+      </li>
+    </ul>
   </body>
 </html>
