@@ -42,12 +42,15 @@ public class MainController {
 
   @GetMapping("/enter")
   public String getEnter() {
+    System.out.println(new LogMessage("/enter", "GET", "INFO"));
     return "enter";
   }
 
   @PostMapping("/enter")
-  public  String postEnter(@RequestBody MyUser user) {
-    service.save(user);
+  public String postEnter(@RequestParam ("userName") String userName) {
+    System.out.println(new LogMessage("/enter","POST", "INFO", "userName=" + userName));
+    MyUser u = new MyUser(userName);
+    service.save(u);
     return "redirect:/";
   }
 }

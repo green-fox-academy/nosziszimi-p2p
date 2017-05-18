@@ -2,6 +2,7 @@ package com.greenfox.nori.peertopeerchatapp.service;
 
 import com.greenfox.nori.peertopeerchatapp.model.MyUser;
 import com.greenfox.nori.peertopeerchatapp.repository.UserRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,20 +17,15 @@ public class Service {
   @Autowired
   UserRepository userRepo;
 
-  public Iterable<MyUser> findAll() {
+  public List<MyUser> findAll() {
     return userRepo.findAll();
   }
 
   public boolean isAnyUser() {
-    int sum = 0;
-    while(findAll().iterator().hasNext()) {
-      findAll().iterator().next();
-      sum++;
-    }
-    if (sum == 0) {
-      return false;
-    } else {
+    if(findAll().size() != 0) {
       return true;
+    } else {
+      return false;
     }
   }
 
