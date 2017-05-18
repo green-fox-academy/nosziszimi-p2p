@@ -32,4 +32,18 @@ public class Service {
   public void save(MyUser user) {
     userRepo.save(user);
   }
+
+  public void updateUserName(String userName, String newUserName) {
+    if (userRepo.findByUserName(newUserName) != null) {
+
+    } else {
+      MyUser user = userRepo.findByUserName(userName);
+      user.setUserName(newUserName);
+      userRepo.save(user);
+    }
+  }
+
+  public MyUser findUser() {
+    return userRepo.findOne(1L);
+  }
 }

@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<MyUser, Long>{
   List<MyUser> findAll();
+
+  MyUser findByUserName(String userName);
 }

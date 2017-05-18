@@ -28,5 +28,4 @@ public class MyUser {
     this.userName = userName;
   }
 
-
 }
