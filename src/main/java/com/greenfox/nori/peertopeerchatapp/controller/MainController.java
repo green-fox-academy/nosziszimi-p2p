@@ -1,5 +1,6 @@
 package com.greenfox.nori.peertopeerchatapp.controller;
 
+import com.greenfox.nori.peertopeerchatapp.model.ErrorMessage;
 import com.greenfox.nori.peertopeerchatapp.model.LogMessage;
 import com.greenfox.nori.peertopeerchatapp.model.MyUser;
 import com.greenfox.nori.peertopeerchatapp.service.Service;
@@ -31,15 +32,17 @@ public class MainController {
   }
 
   @GetMapping("/")
-  public String main(Model model){
-    LogMessage logMessage = new LogMessage("/", "GET", "INFO");
+  public String main(Model model, @RequestParam(value = "errorMessage", required = false) String errorMessage){
+    LogMessage logMessage = new LogMessage("/", "GET", "INFO", "errorMessage=" + errorMessage);
     System.out.println(logMessage);
+    ErrorMessage error = new ErrorMessage(errorMessage);
+    model.addAttribute("error", error);
     if(service.isAnyUser()) {
       MyUser user = service.findUser();
       model.addAttribute("user", user);
       return "main";
     } else {
-     return "redirect:/enter";
+      return "redirect:/enter";
     }
   }
 
@@ -47,8 +50,12 @@ public class MainController {
   public String updateName(@RequestParam("userName") String userName) {
     System.out.println(new LogMessage
             ("/","POST", "INFO", "userName=" + userName));
-    service.updateUserName(service.findUser().getUserName(), userName );
-    return "redirect:/";
+    if (userName.length() == 0) {
+      return "redirect:/?errorMessage=The username field was empty!";
+    } else {
+      service.updateUserName(service.findUser().getUserName(), userName);
+      return "redirect:/";
+    }
   }
 
   @GetMapping("/enter")
