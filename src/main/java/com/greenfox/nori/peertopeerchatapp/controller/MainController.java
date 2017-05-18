@@ -4,6 +4,7 @@ import com.greenfox.nori.peertopeerchatapp.model.LogMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -28,10 +29,14 @@ public class MainController {
     return "main";
   }
 
-  /*@RequestMapping("/error")
-  public String error(NoHandlerFoundException e) {
-    System.out.println("localizedMessage: " + e.getLocalizedMessage());
-    e.printStackTrace();
-    return "main";
-  }*/
+  @GetMapping("/enter")
+  public String getEnter() {
+    return "enter";
+  }
+
+  @PostMapping("/enter")
+  public  String postEnter() {
+
+    return "redirect:/";
+  }
 }

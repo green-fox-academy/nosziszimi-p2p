@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Peer to Peer Chat</title>
+  <link rel="stylesheet" th:href="@{/style.css}"/>
+  <meta charset="utf-8"/>
+</head>
+<body>
+<h1>Enter</h1>
+<form action="/enter" method="post">
+  <span>Choose your name:</span>
+  <input type="text" name="userName"/>
+  <input type="submit" value="enter"/>
+</form>
+</body>
+</html>
