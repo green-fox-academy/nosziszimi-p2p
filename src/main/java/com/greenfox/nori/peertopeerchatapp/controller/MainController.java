@@ -45,12 +45,12 @@ public class MainController {
       MyUser user = service.findUser();
       model.addAttribute("user", user);
 
-      if(service.findAllMessage().size() == 0) {
+      /*if(service.findAllMessage().size() == 0) {
         Message defaultMessage = new Message
                 ("App", "Hi there! Submit your message using the send button!");
         service.saveMessage(defaultMessage);
-      }
-      model.addAttribute("messageList", service.findAllMessage());
+      }*/
+      model.addAttribute("messageList", service.findAllMessageAsc());
       return "main";
     } else {
       return "redirect:/enter";

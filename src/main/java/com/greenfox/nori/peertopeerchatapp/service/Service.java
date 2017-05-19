@@ -68,6 +68,10 @@ public class Service {
     return messageRepo.findAll();
   }
 
+  public List<Message> findAllMessageAsc() {
+    return messageRepo.findAllByOrderByTimestampDesc();
+  }
+
   public void saveMessage(Message message) {
     messageRepo.save(message);
   }

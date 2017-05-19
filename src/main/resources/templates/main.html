@@ -14,16 +14,22 @@
       <input type="text" name="userName" th:value="${user.userName}"/>
       <input type="submit" value="update"/>
     </form>
-    <ul th:each="message : ${messageList}">
-      <li>
-        <p th:text="${message.username}"></p>
-        <p th:text="${message.text}"></p>
-      </li>
-    </ul>
     <form action="/sendnew"  method="post">
+      <span>Write your message here:</span>
       <input type="hidden" name="username" th:value="${user.userName}"/>
       <input type="text" name="text"/>
       <input type="submit" value="Send"/>
     </form>
+    <ul>
+      <li>
+        <p><b>App</b></p>
+        <p><b>Hi there! Submit your message using the send button!</b></p>
+      </li>
+      <li th:each="message : ${messageList}">
+        <p th:text="${message.username}"></p>
+        <p th:text="${message.text}"></p>
+        <span th:text="${message.timestamp}"></span>
+      </li>
+    </ul>
   </body>
 </html>
