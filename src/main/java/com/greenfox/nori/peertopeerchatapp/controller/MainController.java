@@ -82,4 +82,11 @@ public class MainController {
     service.save(u);
     return "redirect:/";
   }
+
+  @PostMapping("/sendnew")
+  public String newMessage(@RequestParam("username") String username, @RequestParam("text") String text) {
+    Message message = new Message(username, text);
+    service.saveMessage(message);
+    return "redirect:/";
+  }
 }
