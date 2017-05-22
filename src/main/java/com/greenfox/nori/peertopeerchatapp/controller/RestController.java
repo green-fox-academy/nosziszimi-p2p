@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by Nóra on 2017. 05. 22..
@@ -54,7 +56,19 @@ public class RestController {
     } else {
       service.saveMessage(incoming.getMessage());
       StatusOk statusOk = new StatusOk("ok");
+      RestTemplate  restTemplate = new RestTemplate();
+      //IncomingJSON incomingJSON = new IncomingJSON();
+      //incomingJSON.setMessage(incoming.getMessage());
+      restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive", incoming, IncomingJSON.class);
       return new ResponseEntity<>(statusOk, HttpStatus.OK);
     }
+  }
+
+  @PostMapping("/sendnew")
+  public void newMessage(@RequestParam("username") String username,
+          @RequestParam("text") String text) {
+    Message message = service.newMessage(username, text);
+    service.saveMessage(message);
+    RestTemplate restTemplate = new RestTemplate();
   }
 }
