@@ -45,12 +45,8 @@ public class MainController {
       MyUser user = service.findUser();
       model.addAttribute("user", user);
 
-      /*if(service.findAllMessage().size() == 0) {
-        Message defaultMessage = new Message
-                ("App", "Hi there! Submit your message using the send button!");
-        service.saveMessage(defaultMessage);
-      }*/
-      model.addAttribute("messageList", service.findAllMessageAsc());
+
+      model.addAttribute("messageList", service.findAllMessageDesc());
       return "main";
     } else {
       return "redirect:/enter";
@@ -77,15 +73,17 @@ public class MainController {
 
   @PostMapping("/enter")
   public String postEnter(@RequestParam ("userName") String userName) {
-    System.out.println(new LogMessage("/enter","POST", "INFO", "userName=" + userName));
+    System.out.println(new LogMessage
+            ("/enter","POST", "INFO", "userName=" + userName));
     MyUser u = new MyUser(userName);
     service.save(u);
     return "redirect:/";
   }
 
   @PostMapping("/sendnew")
-  public String newMessage(@RequestParam("username") String username, @RequestParam("text") String text) {
-    Message message = new Message(username, text);
+  public String newMessage(@RequestParam("username") String username,
+          @RequestParam("text") String text) {
+    Message message = service.newMessage(username, text);
     service.saveMessage(message);
     return "redirect:/";
   }

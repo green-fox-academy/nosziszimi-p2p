@@ -4,6 +4,7 @@ import com.greenfox.nori.peertopeerchatapp.model.Message;
 import com.greenfox.nori.peertopeerchatapp.model.MyUser;
 import com.greenfox.nori.peertopeerchatapp.repository.MessageRepository;
 import com.greenfox.nori.peertopeerchatapp.repository.UserRepository;
+import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -68,11 +69,19 @@ public class Service {
     return messageRepo.findAll();
   }
 
-  public List<Message> findAllMessageAsc() {
+  public List<Message> findAllMessageDesc() {
     return messageRepo.findAllByOrderByTimestampDesc();
   }
 
   public void saveMessage(Message message) {
     messageRepo.save(message);
+  }
+
+  public Message newMessage(String username, String text) {
+    long randomId = getRandomId();
+    while (existingId(randomId)) {
+    randomId = getRandomId();
+    }
+    return new Message(username, text, randomId, new Timestamp(System.currentTimeMillis()));
   }
 }

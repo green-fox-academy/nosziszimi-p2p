@@ -24,15 +24,9 @@ public class Message {
   long id;
 
   public Message() {
-    //long randomId = service.getRandomId();
-    //while (service.existingId(randomId)) {
-      //randomId = service.getRandomId();
-    //}
-    id = 1000000 + (long)(Math.random()*8999999);
-    timestamp = new Timestamp(System.currentTimeMillis());
   }
 
-  public Message(String username, String text) {
+  /*public Message(String username, String text) {
     this();
     this.username = username;
     this.text = text;
@@ -42,6 +36,14 @@ public class Message {
     this.username = username;
     this.text = text;
     this.id = id;
+    timestamp = new Timestamp(System.currentTimeMillis());
+  }*/
+
+  public Message(String username, String text, long id, Timestamp timestamp) {
+    this.username = username;
+    this.text = text;
+    this.id = id;
+    this.timestamp = timestamp;
   }
 
 }
