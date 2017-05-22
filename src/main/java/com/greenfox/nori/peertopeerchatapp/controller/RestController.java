@@ -48,7 +48,8 @@ public class RestController {
     missingField += "client.id";
     }
     if(missingField.length() != 0) {
-      StatusError error = new StatusError("error", "Missing field(s): " + missingField);
+      StatusError error = new StatusError
+              ("error", "Missing field(s): " + missingField);
       return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     } else {
       service.saveMessage(incoming.getMessage());
