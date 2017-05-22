@@ -59,7 +59,8 @@ public class RestController {
       RestTemplate  restTemplate = new RestTemplate();
       //IncomingJSON incomingJSON = new IncomingJSON();
       //incomingJSON.setMessage(incoming.getMessage());
-      restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive", incoming, IncomingJSON.class);
+      restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive"
+              , incoming, StatusOk.class);
       return new ResponseEntity<>(statusOk, HttpStatus.OK);
     }
   }
