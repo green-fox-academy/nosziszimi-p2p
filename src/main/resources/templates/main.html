@@ -8,6 +8,7 @@
   <body>
     <p th:text="${error.errorMessage}"></p>
     <h1>Peer to Peer Chat program</h1>
+
     <form action="/" method="post" th:object="${user}">
       <span>Your username:</span>
       <input type="text" name="userName" th:value="${user.userName}"/>
@@ -18,7 +19,10 @@
       <input type="hidden" name="username" th:value="${user.userName}"/>
       <input type="text" name="text"/>
       <input type="submit" value="Send"/>
+      <span>        </span>
+      <span><a href=".">Refresh</a></span>
     </form>
+
     <ul>
       <li>
         <p><b>App</b></p>
