@@ -1,5 +1,6 @@
 package com.greenfox.nori.peertopeerchatapp.controller;
 
+import com.greenfox.nori.peertopeerchatapp.model.Client;
 import com.greenfox.nori.peertopeerchatapp.model.IncomingJSON;
 import com.greenfox.nori.peertopeerchatapp.model.Message;
 import com.greenfox.nori.peertopeerchatapp.model.StatusError;
@@ -52,24 +53,16 @@ public class RestController {
     if(missingField.length() != 0) {
       StatusError error = new StatusError
               ("error", "Missing field(s): " + missingField);
-      return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+      return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     } else {
       service.saveMessage(incoming.getMessage());
       StatusOk statusOk = new StatusOk("ok");
-      RestTemplate  restTemplate = new RestTemplate();
-      //IncomingJSON incomingJSON = new IncomingJSON();
-      //incomingJSON.setMessage(incoming.getMessage());
-      restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive"
-              , incoming, StatusOk.class);
+      if (!incoming.getClient().getId().equals(System.getenv("CHAT_APP_UNIQUE_ID"))) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForObject("https://greenfox-chat-app.herokuapp.com/api/message/receive"
+                , incoming, StatusOk.class);
+      }
       return new ResponseEntity<>(statusOk, HttpStatus.OK);
     }
-  }
-
-  @PostMapping("/sendnew")
-  public void newMessage(@RequestParam("username") String username,
-          @RequestParam("text") String text) {
-    Message message = service.newMessage(username, text);
-    service.saveMessage(message);
-    RestTemplate restTemplate = new RestTemplate();
   }
 }

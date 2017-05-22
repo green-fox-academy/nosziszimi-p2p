@@ -1,9 +1,12 @@
 package com.greenfox.nori.peertopeerchatapp.controller;
 
+import com.greenfox.nori.peertopeerchatapp.model.Client;
 import com.greenfox.nori.peertopeerchatapp.model.ErrorMessage;
+import com.greenfox.nori.peertopeerchatapp.model.IncomingJSON;
 import com.greenfox.nori.peertopeerchatapp.model.LogMessage;
 import com.greenfox.nori.peertopeerchatapp.model.Message;
 import com.greenfox.nori.peertopeerchatapp.model.MyUser;
+import com.greenfox.nori.peertopeerchatapp.model.StatusOk;
 import com.greenfox.nori.peertopeerchatapp.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
@@ -77,6 +81,24 @@ public class MainController {
             ("/enter","POST", "INFO", "userName=" + userName));
     MyUser u = new MyUser(userName);
     service.save(u);
+    return "redirect:/";
+  }
+
+  @PostMapping("/sendnew")
+  public String newMessage(@RequestParam("username") String username,
+          @RequestParam("text") String text) {
+    Message message = service.newMessage(username, text);
+    RestTemplate restTemplate = new RestTemplate();
+    IncomingJSON incomingJSON = new IncomingJSON();
+    incomingJSON.setMessage(message);
+    Client client = new Client();
+    client.setId(System.getenv("CHAT_APP_UNIQUE_ID"));
+    incomingJSON.setClient(client);
+    //restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive"
+    //        , incomingJSON, StatusOk.class);
+    restTemplate.postForObject("https://greenfox-chat-app.herokuapp.com/api/message/receive"
+            , incomingJSON, StatusOk.class);
+    service.saveMessage(message);
     return "redirect:/";
   }
 }
