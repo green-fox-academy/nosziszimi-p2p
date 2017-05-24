@@ -44,9 +44,9 @@
     <div class="container">
       <div class="starter-template">
 
-        <div class="panel panel-danger">
-          <div class="panel-heading">
-            <span th:text="${error.errorMessage}"></span>
+        <div class="panel panel-danger" th:object="${error}">
+          <div class="panel-heading" th:text="${error.errorMessage}">
+           <!-- <span th:text="${error.errorMessage}"></span>-->
           </div>
         </div>
 
@@ -59,7 +59,7 @@
                 <form class="form-inline" action="/" method="post" th:object="${user}">
                   <div class="form-group">
                     <label for="username">Your username</label>
-                    <input type="text" class="form-control" id="username" th:value="${user.userName}"/>
+                    <input type="text" class="form-control" id="username" name="userName" th:value="${user.userName}"/>
                   </div>
                   <button type="submit" class="btn btn-primary btn-sm">Update</button>
                 </form>

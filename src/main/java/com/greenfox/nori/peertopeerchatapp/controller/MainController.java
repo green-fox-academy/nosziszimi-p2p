@@ -58,14 +58,14 @@ public class MainController {
   }
 
   @PostMapping("/")
-  public String updateName(@RequestParam("userName") String userName) {
+  public String updateName(@RequestParam(value = "userName", required = false) String userName) {
     System.out.println(new LogMessage
             ("/","POST", "INFO", "userName=" + userName));
     if (userName.length() == 0) {
       return "redirect:/?errorMessage=The username field was empty!";
     } else {
       service.updateUserName(service.findUser().getUserName(), userName);
-      return "redirect:/";
+      return "redirect:";
     }
   }
 
@@ -81,7 +81,7 @@ public class MainController {
             ("/enter","POST", "INFO", "userName=" + userName));
     MyUser u = new MyUser(userName);
     service.save(u);
-    return "redirect:/";
+    return "redirect:";
   }
 
   @PostMapping("/sendnew")
