@@ -101,10 +101,10 @@ public class MainController {
     Client client = new Client();
     client.setId(System.getenv("CHAT_APP_UNIQUE_ID"));
     incomingJSON.setClient(client);
-    restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive"
-           , incomingJSON, StatusOk.class);
-   // restTemplate.postForObject("http://dorinagychatapp.herokuapp.com/api/message/receive"
-     //       , incomingJSON, StatusOk.class);
+    //restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive"
+    //       , incomingJSON, StatusOk.class);
+    restTemplate.postForObject("http://dorinagychatapp.herokuapp.com/api/message/receive"
+            , incomingJSON, StatusOk.class);
     service.saveMessage(message);
     return "redirect:";
   }
