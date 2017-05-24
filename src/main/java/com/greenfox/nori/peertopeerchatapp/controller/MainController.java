@@ -65,13 +65,16 @@ public class MainController {
       return "redirect:/?errorMessage=The username field was empty!";
     } else {
       service.updateUserName(service.findUser().getUserName(), userName);
-      return "redirect:";
+      return "redirect:/";
     }
   }
 
   @GetMapping("/enter")
-  public String getEnter() {
+  public String getEnter(Model model,
+          @RequestParam(value = "errorMessage", required = false) String errorMessage) {
     System.out.println(new LogMessage("/enter", "GET", "INFO"));
+    ErrorMessage error = new ErrorMessage(errorMessage);
+    model.addAttribute("error", error);
     return "enter";
   }
 
@@ -79,9 +82,13 @@ public class MainController {
   public String postEnter(@RequestParam ("userName") String userName) {
     System.out.println(new LogMessage
             ("/enter","POST", "INFO", "userName=" + userName));
-    MyUser u = new MyUser(userName);
-    service.save(u);
-    return "redirect:";
+    if (userName.length() == 0) {
+      return "redirect:/enter?errorMessage=The username field was empty!";
+    } else {
+      MyUser u = new MyUser(userName);
+      service.save(u);
+      return "redirect:/";
+    }
   }
 
   @PostMapping("/sendnew")
@@ -94,11 +101,11 @@ public class MainController {
     Client client = new Client();
     client.setId(System.getenv("CHAT_APP_UNIQUE_ID"));
     incomingJSON.setClient(client);
-    //restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive"
-    //        , incomingJSON, StatusOk.class);
-    restTemplate.postForObject("http://dorinagychatapp.herokuapp.com/api/message/receive"
-            , incomingJSON, StatusOk.class);
+    restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive"
+           , incomingJSON, StatusOk.class);
+   // restTemplate.postForObject("http://dorinagychatapp.herokuapp.com/api/message/receive"
+     //       , incomingJSON, StatusOk.class);
     service.saveMessage(message);
-    return "redirect:";
+    return "redirect:/";
   }
 }
