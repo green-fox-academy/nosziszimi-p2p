@@ -95,6 +95,7 @@ public class MainController {
   public String newMessage(@RequestParam("username") String username,
           @RequestParam("text") String text) {
     Message message = service.newMessage(username, text);
+    service.saveMessage(message);
     RestTemplate restTemplate = new RestTemplate();
     IncomingJSON incomingJSON = new IncomingJSON();
     incomingJSON.setMessage(message);
@@ -103,9 +104,10 @@ public class MainController {
     incomingJSON.setClient(client);
     //restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive"
     //       , incomingJSON, StatusOk.class);
-    restTemplate.postForObject("http://dorinagychatapp.herokuapp.com/api/message/receive"
+    //restTemplate.postForObject("http://dorinagychatapp.herokuapp.com/api/message/receive"
+    //        , incomingJSON, StatusOk.class);
+    restTemplate.postForObject("https://macikarcsichatapp.herokuapp.com/api/message/receive"
             , incomingJSON, StatusOk.class);
-    service.saveMessage(message);
     return "redirect:";
   }
 }
