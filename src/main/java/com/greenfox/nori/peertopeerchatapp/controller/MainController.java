@@ -106,7 +106,7 @@ public class MainController {
     //       , incomingJSON, StatusOk.class);
     //restTemplate.postForObject("http://dorinagychatapp.herokuapp.com/api/message/receive"
     //        , incomingJSON, StatusOk.class);
-    restTemplate.postForObject("https://macikarcsichatapp.herokuapp.com/api/message/receive"
+    restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESS")
             , incomingJSON, StatusOk.class);
     return "redirect:";
   }

@@ -59,9 +59,7 @@ public class RestController {
       StatusOk statusOk = new StatusOk("ok");
       if (!incoming.getClient().getId().equals(System.getenv("CHAT_APP_UNIQUE_ID"))) {
         RestTemplate restTemplate = new RestTemplate();
-        //restTemplate.postForObject("http://dorinagychatapp.herokuapp.com/api/message/receive"
-        //        , incoming, StatusOk.class);
-        restTemplate.postForObject("https://macikarcsichatapp.herokuapp.com/api/message/receive"
+        restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESS")
                 , incoming, StatusOk.class);
       }
       return new ResponseEntity<>(statusOk, HttpStatus.OK);
