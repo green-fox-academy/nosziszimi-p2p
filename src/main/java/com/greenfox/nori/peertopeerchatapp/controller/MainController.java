@@ -106,6 +106,6 @@ public class MainController {
    // restTemplate.postForObject("http://dorinagychatapp.herokuapp.com/api/message/receive"
      //       , incomingJSON, StatusOk.class);
     service.saveMessage(message);
-    return "redirect:/";
+    return "redirect:";
   }
 }
