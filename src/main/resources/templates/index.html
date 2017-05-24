@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="../../favicon.ico"/>
+
+    <title>Nóri's peer to peer chat</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet"/>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container-fluid">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Peer to Peer Chat program</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="starter-template">
+
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <span th:text="${error.errorMessage}"></span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">User</div>
+              <div class="panel-body">
+
+                <form class="form-inline" action="/" method="post" th:object="${user}">
+                  <div class="form-group">
+                    <label for="username">Your username</label>
+                    <input type="text" class="form-control" id="username" th:value="${user.userName}"/>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">Chat</div>
+          <div class="panel-body">
+
+            <form action="/sendnew" method="post">
+              <div class="form-group">
+                <label for="message">Messgae</label>
+                <input type="hidden" name="username" th:value="${user.userName}"/>
+                <textarea class="form-control" rows="3" name="text" id="message" placeholder="Write your message here"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Send</button>
+              <a class="btn btn-default" href="." role="button">Refresh</a>
+            </form>
+
+            <ul>
+              <li>
+                <p>
+                  <button type="button" class="btn btn-primary">
+                    <b>Hi there! Submit your message using the send button!</b>
+                  </button>
+                </p>
+                <p>
+                  <span><i>sent by: </i></span>
+                  App
+                </p>
+              </li>
+              <li th:each="message : ${messageList}">
+                <p>
+                  <button type="button" class="btn btn-primary" th:text="${message.text} "></button>
+                </p>
+                <p>
+                  <span><i>sent by: </i></span>
+                  <span th:text="${message.username}"></span>
+                  <span><i>    at: </i></span>
+                  <span th:text="${message.timestamp}"></span>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
+    <!--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"></script>')</script> -->
+    <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

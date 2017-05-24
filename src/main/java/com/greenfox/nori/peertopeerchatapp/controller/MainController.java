@@ -51,7 +51,7 @@ public class MainController {
 
 
       model.addAttribute("messageList", service.findAllMessageDesc());
-      return "main";
+      return "index";
     } else {
       return "redirect:/enter";
     }
