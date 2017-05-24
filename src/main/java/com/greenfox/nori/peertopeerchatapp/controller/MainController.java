@@ -96,7 +96,7 @@ public class MainController {
     incomingJSON.setClient(client);
     //restTemplate.postForObject("https://peertopeerchatapp.herokuapp.com/api/message/receive"
     //        , incomingJSON, StatusOk.class);
-    restTemplate.postForObject("https://greenfox-chat-app.herokuapp.com/api/message/receive"
+    restTemplate.postForObject("http://dorinagychatapp.herokuapp.com/api/message/receive"
             , incomingJSON, StatusOk.class);
     service.saveMessage(message);
     return "redirect:/";
