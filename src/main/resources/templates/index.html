@@ -44,10 +44,15 @@
     <div class="container">
       <div class="starter-template">
 
-        <div class="panel panel-danger" th:object="${error}">
-          <div class="panel-heading" th:text="${error.errorMessage}">
-           <!-- <span th:text="${error.errorMessage}"></span>-->
+        <div th:switch="${error.errorMessage}">
+          <p th:case="'The username field was empty!'">
+          <div class="panel panel-danger">
+            <div class="panel-heading" th:text="${error.errorMessage}">
+              <!-- <span th:text="${error.errorMessage}"></span>-->
+            </div>
           </div>
+          </p>
+          <p th:case="*"></p>
         </div>
 
         <div class="row">
