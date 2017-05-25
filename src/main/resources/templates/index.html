@@ -70,23 +70,27 @@
 
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="panel panel-default">
-          <div class="panel-heading">Chat</div>
-          <div class="panel-body">
+            <div class="panel panel-default">
+              <div class="panel-heading">Chat</div>
+              <div class="panel-body">
 
-            <form action="/sendnew" method="post">
-              <div class="form-group">
-                <label for="message">Messgae</label>
-                <input type="hidden" name="username" th:value="${user.userName}"/>
-                <textarea class="form-control" rows="3" name="text" id="message" placeholder="Write your message here"></textarea>
+                <form action="/sendnew" method="post">
+                  <div class="form-group">
+                    <label for="message">Messgae</label>
+                    <input type="hidden" name="username" th:value="${user.userName}"/>
+                    <textarea class="form-control" rows="3" name="text" id="message" placeholder="Write your message here"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Send</button>
+                  <a class="btn btn-default" href="." role="button">Refresh</a>
+                </form>
+
               </div>
-              <button type="submit" class="btn btn-primary">Send</button>
-              <a class="btn btn-default" href="." role="button">Refresh</a>
-            </form>
+            </div>
 
+          </div>
+
+          <div class="col-md-6">
             <ul>
               <li>
                 <p>
@@ -113,8 +117,6 @@
             </ul>
           </div>
         </div>
-
-
 
       </div>
     </div><!-- /.container -->
