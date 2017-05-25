@@ -69,8 +69,8 @@ public class Service {
     return messageRepo.findAll();
   }
 
-  public List<Message> findAllMessageDesc() {
-    return messageRepo.findAllByOrderByTimestampDesc();
+  public List<Message>findAllMessageDesc() {
+    return messageRepo.findTop10ByOrderByTimestampDesc();
   }
 
   public void saveMessage(Message message) {

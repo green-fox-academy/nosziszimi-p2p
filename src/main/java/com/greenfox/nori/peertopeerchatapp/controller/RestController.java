@@ -66,8 +66,6 @@ public class RestController {
         incoming.getMessage().setText(text);
         restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESS")
                 , incoming, StatusOk.class);
-        restTemplate.postForObject(System.getenv("https://vvarro-p2p.herokuapp.com/api/message/receive")
-                , incoming, StatusOk.class);
       }
       return new ResponseEntity<>(statusOk, HttpStatus.OK);
     }
