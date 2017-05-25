@@ -57,7 +57,8 @@ public class RestController {
     } else {
       service.saveMessage(incoming.getMessage());
       StatusOk statusOk = new StatusOk("ok");
-      if (!incoming.getClient().getId().equals(System.getenv("CHAT_APP_UNIQUE_ID"))) {
+      if (!incoming.getClient().getId().equals(System.getenv("CHAT_APP_UNIQUE_ID"))
+              && !service.repeatedMessage(incoming.getMessage())) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESS")
                 , incoming, StatusOk.class);

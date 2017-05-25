@@ -1,6 +1,7 @@
 package com.greenfox.nori.peertopeerchatapp.repository;
 
 import com.greenfox.nori.peertopeerchatapp.model.Message;
+import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,4 +13,6 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
   public List<Message> findAll();
 
   public List<Message> findAllByOrderByTimestampDesc();
+
+  public List<Message> findAllByTimestampAndUsernameAndText(Timestamp timestamp, String username, String text);
 }

@@ -84,4 +84,17 @@ public class Service {
     }
     return new Message(username, text, randomId, new Timestamp(System.currentTimeMillis()));
   }
+
+  public boolean repeatedMessage(Message message) {
+   List<Message> messageList = findAMEssage(message.getTimestamp()
+           ,message.getUsername(),message.getText());
+   if(messageList.size() == 0) {
+     return false;
+   }
+   return true;
+  }
+
+  private List<Message> findAMEssage(Timestamp timestamp, String username, String text) {
+    return messageRepo.findAllByTimestampAndUsernameAndText(timestamp, username, text);
+  }
 }
