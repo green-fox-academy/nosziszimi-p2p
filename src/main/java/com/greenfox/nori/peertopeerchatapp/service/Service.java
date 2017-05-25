@@ -88,7 +88,7 @@ public class Service {
   public boolean repeatedMessage(Message message) {
    List<Message> messageList = findAMEssage(message.getTimestamp()
            ,message.getUsername(),message.getText());
-   if(messageList.size() == 0) {
+   if(messageList.size() < 2) {
      return false;
    }
    return true;
