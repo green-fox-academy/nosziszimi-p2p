@@ -86,7 +86,7 @@ public class Service {
   }
 
   public boolean repeatedMessage(Message message) {
-   List<Message> messageList = findAMEssage(message.getTimestamp()
+   List<Message> messageList = findAMEssage(message.getId()
            ,message.getUsername());
    if(messageList.size() < 2) {
      return false;
@@ -94,7 +94,7 @@ public class Service {
    return true;
   }
 
-  private List<Message> findAMEssage(Timestamp timestamp, String username) {
-    return messageRepo.findAllByTimestampAndUsername(timestamp, username);
+  private List<Message> findAMEssage(long id, String username) {
+    return messageRepo.findAllByIdAndUsername(id, username);
   }
 }
