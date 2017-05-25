@@ -60,6 +60,9 @@ public class RestController {
       if (!incoming.getClient().getId().equals(System.getenv("CHAT_APP_UNIQUE_ID"))
               && !service.repeatedMessage(incoming.getMessage())) {
         RestTemplate restTemplate = new RestTemplate();
+        String text = incoming.getMessage().getText();
+        text += "-Nóri-";
+        incoming.getMessage().setText(text);
         restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESS")
                 , incoming, StatusOk.class);
       }
