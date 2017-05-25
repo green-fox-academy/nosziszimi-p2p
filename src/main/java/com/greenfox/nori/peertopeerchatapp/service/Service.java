@@ -87,14 +87,14 @@ public class Service {
 
   public boolean repeatedMessage(Message message) {
    List<Message> messageList = findAMEssage(message.getTimestamp()
-           ,message.getUsername(),message.getText());
+           ,message.getUsername());
    if(messageList.size() < 2) {
      return false;
    }
    return true;
   }
 
-  private List<Message> findAMEssage(Timestamp timestamp, String username, String text) {
-    return messageRepo.findAllByTimestampAndUsernameAndText(timestamp, username, text);
+  private List<Message> findAMEssage(Timestamp timestamp, String username) {
+    return messageRepo.findAllByTimestampAndUsername(timestamp, username);
   }
 }

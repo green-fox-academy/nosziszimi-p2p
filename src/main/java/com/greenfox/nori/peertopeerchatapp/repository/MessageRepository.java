@@ -14,5 +14,5 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
 
   public List<Message> findAllByOrderByTimestampDesc();
 
-  public List<Message> findAllByTimestampAndUsernameAndText(Timestamp timestamp, String username, String text);
+  public List<Message> findAllByTimestampAndUsername(Timestamp timestamp, String username);
 }
