@@ -56,10 +56,10 @@ public class RestController {
               ("error", "Missing field(s): " + missingField);
       return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     } else {
-      service.saveMessage(message);
       StatusOk statusOk = new StatusOk("ok");
       if (!incoming.getClient().getId().equals(System.getenv("CHAT_APP_UNIQUE_ID"))
               && !service.repeatedMessage(incoming.getMessage())) {
+        service.saveMessage(message);
         RestTemplate restTemplate = new RestTemplate();
         //String text = incoming.getMessage().getText();
         //text += "-Nóri-";
