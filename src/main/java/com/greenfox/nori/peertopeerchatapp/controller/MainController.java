@@ -108,6 +108,8 @@ public class MainController {
     //        , incomingJSON, StatusOk.class);
     restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESS")
             , incomingJSON, StatusOk.class);
+    restTemplate.postForObject(System.getenv("https://vvarro-p2p.herokuapp.com/api/message/receive")
+            , incomingJSON, StatusOk.class);
     return "redirect:";
   }
 }

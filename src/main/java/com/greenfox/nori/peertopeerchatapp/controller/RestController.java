@@ -50,12 +50,13 @@ public class RestController {
     if(incoming.getClient().getId() == null) {
     missingField += "client.id";
     }
+
     if(missingField.length() != 0) {
       StatusError error = new StatusError
               ("error", "Missing field(s): " + missingField);
       return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     } else {
-      service.saveMessage(incoming.getMessage());
+      service.saveMessage(message);
       StatusOk statusOk = new StatusOk("ok");
       if (!incoming.getClient().getId().equals(System.getenv("CHAT_APP_UNIQUE_ID"))
               && !service.repeatedMessage(incoming.getMessage())) {
@@ -64,6 +65,8 @@ public class RestController {
         text += "-Nóri-";
         incoming.getMessage().setText(text);
         restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESS")
+                , incoming, StatusOk.class);
+        restTemplate.postForObject(System.getenv("https://vvarro-p2p.herokuapp.com/api/message/receive")
                 , incoming, StatusOk.class);
       }
       return new ResponseEntity<>(statusOk, HttpStatus.OK);
